@@ -2,6 +2,8 @@ package es.guillermoorellana.dogdoggo
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import es.guillermoorellana.dogdoggo.data.DogApi
+import es.guillermoorellana.dogdoggo.data.DogRepository
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 

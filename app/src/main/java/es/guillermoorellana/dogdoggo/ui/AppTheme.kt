@@ -1,4 +1,4 @@
-package es.guillermoorellana.dogdoggo
+package es.guillermoorellana.dogdoggo.ui
 
 import android.app.Activity
 import androidx.compose.Composable

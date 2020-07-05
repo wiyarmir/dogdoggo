@@ -7,6 +7,10 @@ import androidx.compose.Providers
 import androidx.compose.ambientOf
 import androidx.lifecycle.LiveData
 import androidx.ui.core.setContent
+import es.guillermoorellana.dogdoggo.domain.BreedsViewModel
+import es.guillermoorellana.dogdoggo.domain.BreedsViewState
+import es.guillermoorellana.dogdoggo.ui.App
+import es.guillermoorellana.dogdoggo.ui.AppTheme
 
 class MainActivity : AppCompatActivity() {
 

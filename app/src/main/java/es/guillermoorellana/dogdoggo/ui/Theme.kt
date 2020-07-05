@@ -1,4 +1,4 @@
-package es.guillermoorellana.dogdoggo
+package es.guillermoorellana.dogdoggo.ui
 
 import androidx.ui.material.Typography
 import androidx.ui.material.darkColorPalette

@@ -1,4 +1,4 @@
-package es.guillermoorellana.dogdoggo
+package es.guillermoorellana.dogdoggo.data
 
 import retrofit2.http.GET
 

@@ -1,9 +1,12 @@
-package es.guillermoorellana.dogdoggo
+package es.guillermoorellana.dogdoggo.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import es.guillermoorellana.dogdoggo.NotDagger
+import es.guillermoorellana.dogdoggo.data.DogBreed
+import es.guillermoorellana.dogdoggo.data.DogRepository
 import kotlinx.coroutines.launch
 
 class BreedsViewModel(
