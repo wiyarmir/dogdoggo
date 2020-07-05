@@ -13,24 +13,32 @@ class BreedsViewModel(
     private val repository: DogRepository = NotDagger.repository()
 ) : ViewModel() {
 
-    private val _breeds: MutableLiveData<BreedsViewState> = MutableLiveData(BreedsViewState.Loading)
+    private val _state: MutableLiveData<BreedsViewState> = MutableLiveData(BreedsViewState.Loading)
 
     val state: LiveData<BreedsViewState>
-        get() = _breeds
+        get() = _state
 
     init {
         fetchBreeds()
     }
 
     fun fetchBreeds() {
+        _state.value = BreedsViewState.Loading
         viewModelScope.launch {
-            val breeds = repository.allBreeds()
-            _breeds.value = BreedsViewState.Loaded(
-                breeds = breeds.map { breed ->
-                    DisplayBreed(
-                        text = breed.displayText(),
-                        breed = breed
+            val result = runCatching { repository.allBreeds() }
+            _state.value = result.fold(
+                onSuccess = { breeds ->
+                    BreedsViewState.Loaded(
+                        breeds = breeds.map { breed ->
+                            DisplayBreed(
+                                text = breed.displayText(),
+                                breed = breed
+                            )
+                        }
                     )
+                },
+                onFailure = {
+                    BreedsViewState.Error
                 }
             )
         }
@@ -44,6 +52,5 @@ sealed class BreedsViewState {
     object Error : BreedsViewState()
     data class Loaded(val breeds: List<DisplayBreed> = emptyList()) : BreedsViewState()
 }
-
 
 data class DisplayBreed(val text: String, val breed: DogBreed)

@@ -5,10 +5,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Providers
 import androidx.compose.ambientOf
-import androidx.lifecycle.LiveData
 import androidx.ui.core.setContent
 import es.guillermoorellana.dogdoggo.domain.BreedsViewModel
-import es.guillermoorellana.dogdoggo.domain.BreedsViewState
 import es.guillermoorellana.dogdoggo.ui.App
 import es.guillermoorellana.dogdoggo.ui.AppTheme
 
@@ -21,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             AppTheme {
                 Providers(
-                    BreedsStateAmbient provides breedsViewModel.state
+                    BreedsVMAmbient provides breedsViewModel
                 ) {
                     App()
                 }
@@ -30,4 +28,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-val BreedsStateAmbient = ambientOf<LiveData<BreedsViewState>> { error("Uninitialised!") }
+val BreedsVMAmbient = ambientOf<BreedsViewModel> { error("Uninitialised!") }
