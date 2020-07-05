@@ -82,6 +82,7 @@ dependencies {
     implementation("com.squareup.moshi:moshi:1.9.3")
     implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0")
 

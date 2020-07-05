@@ -20,7 +20,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                Providers(BreedsAmbient provides breedsViewModel.breeds) {
+                Providers(
+                    BreedsStateAmbient provides breedsViewModel.state
+                ) {
                     App()
                 }
             }
@@ -28,4 +30,4 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-val BreedsAmbient = ambientOf<LiveData<BreedsViewState>> { error("Uninitialised!") }
+val BreedsStateAmbient = ambientOf<LiveData<BreedsViewState>> { error("Uninitialised!") }
