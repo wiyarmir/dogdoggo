@@ -69,6 +69,7 @@ dependencies {
     implementation("androidx.ui:ui-core:$compose_version")
     implementation("androidx.ui:ui-foundation:$compose_version")
     implementation("androidx.ui:ui-layout:$compose_version")
+    implementation("androidx.ui:ui-livedata:$compose_version")
     implementation("androidx.ui:ui-material-icons-extended:$compose_version")
     implementation("androidx.ui:ui-material:$compose_version")
     implementation("androidx.ui:ui-tooling:$compose_version")
@@ -76,6 +77,13 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
+
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.9.3")
+    implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0")
 
     testImplementation("junit:junit:4.13")
 
