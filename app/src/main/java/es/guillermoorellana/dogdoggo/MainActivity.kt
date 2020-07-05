@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Providers
 import androidx.compose.ambientOf
 import androidx.ui.core.setContent
+import com.github.zsoltk.compose.backpress.AmbientBackPressHandler
+import com.github.zsoltk.compose.backpress.BackPressHandler
 import es.guillermoorellana.dogdoggo.domain.BreedsViewModel
-import es.guillermoorellana.dogdoggo.ui.App
 import es.guillermoorellana.dogdoggo.ui.AppTheme
 
 class MainActivity : AppCompatActivity() {
+
+    private val backPressHandler = BackPressHandler()
 
     private val breedsViewModel: BreedsViewModel by viewModels()
 
@@ -19,11 +22,19 @@ class MainActivity : AppCompatActivity() {
         setContent {
             AppTheme {
                 Providers(
-                    BreedsVMAmbient provides breedsViewModel
+                    BreedsVMAmbient provides breedsViewModel,
+                    AmbientBackPressHandler provides backPressHandler
+
                 ) {
                     App()
                 }
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!backPressHandler.handle()) {
+            super.onBackPressed()
         }
     }
 }

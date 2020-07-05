@@ -84,7 +84,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0")
+    implementation("com.github.zsoltk:compose-router:0.13.0")
 
     testImplementation("junit:junit:4.13")
 
