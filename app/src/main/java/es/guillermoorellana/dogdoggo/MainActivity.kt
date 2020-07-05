@@ -8,23 +8,25 @@ import androidx.compose.ambientOf
 import androidx.ui.core.setContent
 import com.github.zsoltk.compose.backpress.AmbientBackPressHandler
 import com.github.zsoltk.compose.backpress.BackPressHandler
-import es.guillermoorellana.dogdoggo.domain.BreedsViewModel
+import es.guillermoorellana.dogdoggo.domain.BreedDetailViewModel
+import es.guillermoorellana.dogdoggo.domain.BreedListViewModel
 import es.guillermoorellana.dogdoggo.ui.AppTheme
 
 class MainActivity : AppCompatActivity() {
 
     private val backPressHandler = BackPressHandler()
 
-    private val breedsViewModel: BreedsViewModel by viewModels()
+    private val breedListViewModel: BreedListViewModel by viewModels()
+    private val breedDetailViewModel: BreedDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
                 Providers(
-                    BreedsVMAmbient provides breedsViewModel,
+                    BreedListVMAmbient provides breedListViewModel,
+                    BreedDetailVMAmbient provides breedDetailViewModel,
                     AmbientBackPressHandler provides backPressHandler
-
                 ) {
                     App()
                 }
@@ -39,4 +41,5 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-val BreedsVMAmbient = ambientOf<BreedsViewModel> { error("Uninitialised!") }
+val BreedListVMAmbient = ambientOf<BreedListViewModel> { error("Uninitialised!") }
+val BreedDetailVMAmbient = ambientOf<BreedDetailViewModel> { error("Uninitialised!") }

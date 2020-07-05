@@ -1,8 +1,6 @@
 package es.guillermoorellana.dogdoggo.ui
 
-import android.widget.Toast
 import androidx.compose.Composable
-import androidx.ui.core.ContextAmbient
 import androidx.ui.core.DensityAmbient
 import androidx.ui.core.Modifier
 import androidx.ui.foundation.*
@@ -19,11 +17,13 @@ import androidx.ui.unit.Dp
 import androidx.ui.unit.dp
 import androidx.ui.unit.px
 import co.adrianblan.ui.InsetsAmbient
-import es.guillermoorellana.dogdoggo.BreedsVMAmbient
+import es.guillermoorellana.dogdoggo.BackStackAmbient
+import es.guillermoorellana.dogdoggo.BreedListVMAmbient
+import es.guillermoorellana.dogdoggo.Routes
 import es.guillermoorellana.dogdoggo.domain.BreedsViewState
 
 @Composable
-fun BreedsScreen() {
+fun BreedListScreen() {
     Scaffold {
         val scroller = ScrollerPosition()
         val toolbarMinHeight = 56.dp
@@ -35,7 +35,7 @@ fun BreedsScreen() {
             Spacer(
                 modifier = Modifier.preferredHeight(toolbarMaxHeight + topInsets)
             )
-            Doggos()
+            BreedList()
             Spacer(
                 modifier = Modifier.preferredHeight(toolbarMinHeight)
             )
@@ -52,9 +52,9 @@ fun BreedsScreen() {
 }
 
 @Composable
-fun Doggos() {
-    val breedsViewModel = BreedsVMAmbient.current
-    when (val viewState = breedsViewModel.state.observeAsState(BreedsViewState.Loading).value) {
+fun BreedList() {
+    val breedsViewModel = BreedListVMAmbient.current
+    when (val viewState = breedsViewModel.state.observeAsState().value!!) {
         is BreedsViewState.Loading ->
             Box(
                 modifier = Modifier.fillMaxSize().padding(32.dp),
@@ -73,12 +73,13 @@ fun Doggos() {
                     Text("Try again")
                 }
             }
-        is BreedsViewState.Loaded ->
-            viewState.breeds.forEach { breed ->
-                val context = ContextAmbient.current
+        is BreedsViewState.Loaded -> {
+            val backStack = BackStackAmbient.current
+            viewState.breeds.forEach { displayBreed ->
                 ListItem(
-                    text = breed.text,
-                    onClick = { Toast.makeText(context, breed.text, Toast.LENGTH_SHORT).show() })
+                    text = displayBreed.text,
+                    onClick = { backStack.push(Routes.BreedDetail(displayBreed.breed)) })
             }
+        }
     } to "exhaustive"
 }
