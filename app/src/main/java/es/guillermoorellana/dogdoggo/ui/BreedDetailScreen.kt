@@ -1,7 +1,9 @@
 package es.guillermoorellana.dogdoggo.ui
 
 import androidx.compose.Composable
+import androidx.ui.core.DensityAmbient
 import androidx.ui.core.Modifier
+import androidx.ui.core.WithConstraints
 import androidx.ui.foundation.AdapterList
 import androidx.ui.foundation.Box
 import androidx.ui.foundation.ContentGravity
@@ -10,6 +12,7 @@ import androidx.ui.layout.Spacer
 import androidx.ui.layout.fillMaxSize
 import androidx.ui.layout.fillMaxWidth
 import androidx.ui.layout.padding
+import androidx.ui.layout.preferredHeight
 import androidx.ui.livedata.observeAsState
 import androidx.ui.material.Button
 import androidx.ui.material.Card
@@ -56,16 +59,21 @@ fun BreedDetailScreen() {
                 AdapterList(data = viewState.photos) {
                     Card(
                         modifier = Modifier
+                            .fillMaxWidth()
                             .padding(8.dp)
                     ) {
-                        CoilImage(
-                            model = it,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                        ) {
-                            crossfade(true)
-                            placeholder(R.drawable.placeholder)
-                            scale(Scale.FILL)
+                        WithConstraints {
+                            val boxWidth = with(DensityAmbient.current) { constraints.maxWidth.toDp() }
+                            val boxHeight = boxWidth * 3f / 4f
+                            CoilImage(
+                                model = it,
+                                modifier = Modifier
+                                    .preferredHeight(boxHeight)
+                            ) {
+                                crossfade(true)
+                                placeholder(R.drawable.placeholder)
+                                scale(Scale.FILL)
+                            }
                         }
                     }
                 }
