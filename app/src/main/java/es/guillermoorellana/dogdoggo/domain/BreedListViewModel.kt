@@ -1,8 +1,8 @@
 package es.guillermoorellana.dogdoggo.domain
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import es.guillermoorellana.dogdoggo.NotDagger
-import es.guillermoorellana.dogdoggo.data.DogBreed
 import es.guillermoorellana.dogdoggo.data.DogRepository
 import es.guillermoorellana.dogdoggo.infra.StateViewModel
 import kotlinx.coroutines.launch
@@ -25,13 +25,15 @@ class BreedListViewModel(
                         BreedsViewState.Loaded(
                             breeds = breeds.map { breed ->
                                 DisplayBreed(
-                                    text = breed.displayText(),
-                                    breed = breed
+                                    text = breed.asBreedDisplayText(),
+                                    breed = breed.first,
+                                    subBreed = breed.second
                                 )
                             }
                         )
                     },
                     onFailure = {
+                        Log.e(javaClass.name, "Failure fetching breeds: ${it.localizedMessage}")
                         BreedsViewState.Error
                     }
                 )
@@ -40,7 +42,7 @@ class BreedListViewModel(
     }
 }
 
-fun DogBreed.displayText() = "${apiBreed.capitalize()} ${apiSubBreed?.capitalize() ?: ""}".trim()
+fun Pair<String, String?>.asBreedDisplayText() = "${first.capitalize()} ${second?.capitalize() ?: ""}".trim()
 
 sealed class BreedsViewState {
     object Loading : BreedsViewState()
@@ -48,4 +50,4 @@ sealed class BreedsViewState {
     data class Loaded(val breeds: List<DisplayBreed> = emptyList()) : BreedsViewState()
 }
 
-data class DisplayBreed(val text: String, val breed: DogBreed)
+data class DisplayBreed(val text: String, val breed: String, val subBreed: String?)

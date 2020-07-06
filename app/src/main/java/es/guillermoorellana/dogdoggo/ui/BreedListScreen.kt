@@ -1,6 +1,7 @@
 package es.guillermoorellana.dogdoggo.ui
 
 import androidx.compose.Composable
+import androidx.ui.core.ContextAmbient
 import androidx.ui.core.DensityAmbient
 import androidx.ui.core.Modifier
 import androidx.ui.foundation.*
@@ -17,9 +18,8 @@ import androidx.ui.unit.Dp
 import androidx.ui.unit.dp
 import androidx.ui.unit.px
 import co.adrianblan.ui.InsetsAmbient
-import es.guillermoorellana.dogdoggo.BackStackAmbient
 import es.guillermoorellana.dogdoggo.BreedListVMAmbient
-import es.guillermoorellana.dogdoggo.Routes
+import es.guillermoorellana.dogdoggo.DetailActivity
 import es.guillermoorellana.dogdoggo.domain.BreedsViewState
 
 @Composable
@@ -74,11 +74,20 @@ fun BreedList() {
                 }
             }
         is BreedsViewState.Loaded -> {
-            val backStack = BackStackAmbient.current
+            val context = ContextAmbient.current
             viewState.breeds.forEach { displayBreed ->
                 ListItem(
                     text = displayBreed.text,
-                    onClick = { backStack.push(Routes.BreedDetail(displayBreed.breed)) })
+                    onClick = {
+                        context.startActivity(
+                            DetailActivity.newIntent(
+                                context,
+                                displayBreed.breed,
+                                displayBreed.subBreed
+                            )
+                        )
+                    }
+                )
             }
         }
     } to "exhaustive"
