@@ -86,6 +86,9 @@ dependencies {
 
     implementation("com.github.zsoltk:compose-router:0.13.0")
 
+    implementation("io.coil-kt:coil:0.11.0")
+    implementation("com.github.luca992:coil-composable:0.2.1")
+
     testImplementation("junit:junit:4.13")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
