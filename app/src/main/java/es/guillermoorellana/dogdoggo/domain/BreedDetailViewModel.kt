@@ -1,6 +1,5 @@
 package es.guillermoorellana.dogdoggo.domain
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import es.guillermoorellana.dogdoggo.NotDagger
 import es.guillermoorellana.dogdoggo.data.DogBreed
@@ -37,7 +36,6 @@ class BreedDetailViewModel(
                         )
                     },
                     onFailure = {
-                        Log.e(javaClass.name, "Failure fetching photos: ${it.localizedMessage}")
                         BreedDetailViewState.Error
                     }
                 )

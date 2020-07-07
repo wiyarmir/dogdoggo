@@ -4,7 +4,11 @@ import androidx.compose.Composable
 import androidx.ui.core.ContextAmbient
 import androidx.ui.core.DensityAmbient
 import androidx.ui.core.Modifier
-import androidx.ui.foundation.*
+import androidx.ui.foundation.Box
+import androidx.ui.foundation.ContentGravity
+import androidx.ui.foundation.ScrollerPosition
+import androidx.ui.foundation.Text
+import androidx.ui.foundation.VerticalScroller
 import androidx.ui.layout.Spacer
 import androidx.ui.layout.fillMaxSize
 import androidx.ui.layout.padding
@@ -20,7 +24,7 @@ import androidx.ui.unit.px
 import co.adrianblan.ui.InsetsAmbient
 import es.guillermoorellana.dogdoggo.BreedListVMAmbient
 import es.guillermoorellana.dogdoggo.DetailActivity
-import es.guillermoorellana.dogdoggo.domain.BreedsViewState
+import es.guillermoorellana.dogdoggo.domain.BreedListViewState
 
 @Composable
 fun BreedListScreen() {
@@ -55,14 +59,14 @@ fun BreedListScreen() {
 fun BreedList() {
     val breedsViewModel = BreedListVMAmbient.current
     when (val viewState = breedsViewModel.state.observeAsState().value!!) {
-        is BreedsViewState.Loading ->
+        is BreedListViewState.Loading ->
             Box(
                 modifier = Modifier.fillMaxSize().padding(32.dp),
                 gravity = ContentGravity.Center
             ) {
                 CircularProgressIndicator()
             }
-        is BreedsViewState.Error ->
+        is BreedListViewState.Error ->
             Box(
                 modifier = Modifier.fillMaxSize().padding(32.dp),
                 gravity = ContentGravity.Center
@@ -73,7 +77,7 @@ fun BreedList() {
                     Text("Try again")
                 }
             }
-        is BreedsViewState.Loaded -> {
+        is BreedListViewState.Loaded -> {
             val context = ContextAmbient.current
             viewState.breeds.forEach { displayBreed ->
                 ListItem(

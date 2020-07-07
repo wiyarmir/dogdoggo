@@ -84,12 +84,14 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
-    implementation("com.github.zsoltk:compose-router:0.13.0")
-
     implementation("io.coil-kt:coil:0.11.0")
     implementation("com.github.luca992:coil-composable:0.2.1")
 
     testImplementation("junit:junit:4.13")
+    testImplementation("org.mockito:mockito-inline:3.3.3")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")

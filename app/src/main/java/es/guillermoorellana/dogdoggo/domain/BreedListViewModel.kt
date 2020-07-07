@@ -1,6 +1,5 @@
 package es.guillermoorellana.dogdoggo.domain
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import es.guillermoorellana.dogdoggo.NotDagger
 import es.guillermoorellana.dogdoggo.data.DogRepository
@@ -9,20 +8,20 @@ import kotlinx.coroutines.launch
 
 class BreedListViewModel(
     private val repository: DogRepository = NotDagger.repository()
-) : StateViewModel<BreedsViewState>(BreedsViewState.Loading) {
+) : StateViewModel<BreedListViewState>(BreedListViewState.Loading) {
 
     init {
         fetchBreeds()
     }
 
     fun fetchBreeds() {
-        setState { BreedsViewState.Loading }
+        setState { BreedListViewState.Loading }
         viewModelScope.launch {
             val result = runCatching { repository.allBreeds() }
             setState {
                 result.fold(
                     onSuccess = { breeds ->
-                        BreedsViewState.Loaded(
+                        BreedListViewState.Loaded(
                             breeds = breeds.map { breed ->
                                 DisplayBreed(
                                     text = breed.asBreedDisplayText(),
@@ -33,8 +32,7 @@ class BreedListViewModel(
                         )
                     },
                     onFailure = {
-                        Log.e(javaClass.name, "Failure fetching breeds: ${it.localizedMessage}")
-                        BreedsViewState.Error
+                        BreedListViewState.Error
                     }
                 )
             }
@@ -44,10 +42,10 @@ class BreedListViewModel(
 
 fun Pair<String, String?>.asBreedDisplayText() = "${first.capitalize()} ${second?.capitalize() ?: ""}".trim()
 
-sealed class BreedsViewState {
-    object Loading : BreedsViewState()
-    object Error : BreedsViewState()
-    data class Loaded(val breeds: List<DisplayBreed> = emptyList()) : BreedsViewState()
+sealed class BreedListViewState {
+    object Loading : BreedListViewState()
+    object Error : BreedListViewState()
+    data class Loaded(val breeds: List<DisplayBreed> = emptyList()) : BreedListViewState()
 }
 
 data class DisplayBreed(val text: String, val breed: String, val subBreed: String?)
